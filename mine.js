@@ -29,8 +29,6 @@ var gGame = {
 };
 
 var beginner = buildBoard(gLevel.beginner);
-var medium = buildBoard(gLevel.medium);
-var expert = buildBoard(gLevel.expert);
 function initGame(value) {
   renderBoard(value);
   buildBoard(value);
@@ -81,6 +79,7 @@ function renderBoard(board) {
     for (var j = 0; j < board.length; j++) {
       var currentCell = board[i][j];
       var negs = setMinesNegsCount(board, i, j);
+
       if (board.length === 4) {
         gBoard.minesAroundCount = 2;
       } else if (board.length === 8) {
@@ -88,18 +87,18 @@ function renderBoard(board) {
       } else if (board.length === 12) {
         gBoard.minesAroundCount = 32;
       }
+
       while (counter < gBoard.minesAroundCount) {
         board[getRandomIntInclusive(i, board.length - 1)][
           getRandomIntInclusive(j, board.length - 1)
         ] = MINE;
-        currentCell = MINE;
         gBoard.minesAroundCount;
         counter++;
       }
       if (board[i][j] !== MINE) {
         board[i][j] = negs;
       }
-      //
+
       var cellClass = getClassName({ i, j });
       strHTML += `\t\n<td class="${cellClass}" onmousedown="cellMarked(this,${i},${j})"  onclick="cellClicked(this,${i},${j})">
       </td>`;
@@ -107,7 +106,7 @@ function renderBoard(board) {
   }
   console.table(board);
   strHTML += `\t\n</tr>\n`;
-  return (elBoard.innerHTML = strHTML);
+  elBoard.innerHTML = strHTML;
 }
 
 function cellClicked(elCell, elCellI, elCellJ) {
@@ -134,23 +133,25 @@ function cellClicked(elCell, elCellI, elCellJ) {
 function restartBtn() {
   renderBoard(beginner);
   gGame.isOn = true;
-  return (gBoard.minesAroundCount = 0);
+  gBoard.minesAroundCount = 0;
 }
 
 function cellMarked(elCell, elCellI, elCellJ) {
-  var board = beginner;
-  var elTd = document.querySelector("td");
-  var currentCell = board[elCellI][elCellJ];
-  elTd = elCell;
-  elTd.innerHTML = "🚩";
-  if (currentCell === 0) {
-    elTd.style.backgroundColor = "white";
-    elTd.innerHTML = "";
-  }
-  if (currentCell === MINE) {
-    gLevel.beginner.MINES--;
-    if (gLevel.beginner.MINES === 0) {
-      console.log("you won");
+  if (gGame.isOn) {
+    var board = beginner;
+    var elTd = document.querySelector("td");
+    var currentCell = board[elCellI][elCellJ];
+    elTd = elCell;
+    elTd.innerHTML = "🚩";
+    if (currentCell === 0) {
+      elTd.style.backgroundColor = "white";
+      elTd.innerHTML = "";
+    }
+    if (currentCell === MINE) {
+      gLevel.beginner.MINES--;
+      if (gLevel.beginner.MINES === 0) {
+        console.log("You Won!");
+      }
     }
   }
 }
@@ -179,7 +180,7 @@ function timer() {
     var elTimer = document.querySelector(".safeTimerDisplay");
     elTimer.innerHTML = `00:${sec}`;
     sec--;
-    if (sec < 0) {
+    if (sec < 0 || elBtnRes.style.display === "inline-block") {
       elBtnRes.style.display = "inline-block";
       elTimer.style.display = "none";
       clearInterval(timer);
