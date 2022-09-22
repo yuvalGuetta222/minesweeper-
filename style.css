@@ -1,0 +1,50 @@
+body {
+  background-color: red;
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+table {
+  margin: auto;
+}
+
+td {
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  font-size: 25px;
+  color: white;
+  border: 2px solid black;
+}
+
+.levels {
+  background-color: red;
+  text-align: center;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-bottom: 10px;
+  margin: auto;
+}
+select {
+  background-color: rgb(87, 9, 18);
+  padding: 5px;
+}
+
+.restart {
+  margin: 20px;
+  width: 150px;
+  height: 50px;
+  background-color: rgb(146, 50, 50);
+  color: white;
+  font-size: 30px;
+  /* display: none; */
+}
