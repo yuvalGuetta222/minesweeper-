@@ -9,18 +9,19 @@
     <title>Minesweeper</title>
 </head>
 
-<body onload="initGame(expert)">
+<body onload="initGame(beginner)">
     <h1>Minesweeper</h1>
     <h2>😀</h2>
     <div class="levels">
-        <button onclick="renderBoard(beginner)">Beginner</button>
-        <button onclick="renderBoard(medium)">Medium</button>
-        <button onclick="renderBoard(expert)">Expert</button>
+        <button onclick="initGame(beginner)">Beginner</button>
+        <button onclick="initGame(medium)">Medium</button>
+        <button onclick="initGame(expert)">Expert</button>
     </div>
     <table>
         <tbody class="mine-board"></tbody>
     </table>
-    <button class="restart" onclick="restartBtn(this)">Restart</button>
+    <button class="restart" onclick="restartBtn()">Restart</button>
+    <div class="safeTimerDisplay"></div>
     <script src="mine.js"></script>
 </body>
 

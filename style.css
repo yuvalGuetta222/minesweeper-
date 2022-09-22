@@ -1,5 +1,5 @@
 body {
-  background-color: red;
+  background-color: #0096c7;
   text-align: center;
   color: white;
 }
@@ -27,16 +27,11 @@ td {
 }
 
 .levels {
-  background-color: red;
+  color: #d62828;
   text-align: center;
-  margin-left: 200px;
-  margin-right: 200px;
-  margin-bottom: 10px;
   margin: auto;
-}
-select {
-  background-color: rgb(87, 9, 18);
-  padding: 5px;
+  padding: 20px;
+  background-color: #0077b6;
 }
 
 .restart {
@@ -46,5 +41,14 @@ select {
   background-color: rgb(146, 50, 50);
   color: white;
   font-size: 30px;
-  /* display: none; */
+  display: none;
+}
+
+.safeTimerDisplay {
+  background-color: #023e8a;
+  margin: auto;
+  margin-top: 40px;
+  padding-top: 15px;
+  width: 94px;
+  height: 31px;
 }
