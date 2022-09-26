@@ -9,19 +9,20 @@
     <title>Minesweeper</title>
 </head>
 
-<body onload="initGame(beginner)">
+<body onload="renderBoard(beginner)" oncontextmenu="return false;">
     <h1>Minesweeper</h1>
     <h2>😀</h2>
+    <h3 class="life">❤️❤️❤️</h3>
     <div class="levels">
-        <button style="background-color: rgb(39, 131, 218);" onclick="initGame(beginner)">Beginner</button>
-        <button style="background-color: rgb(39, 131, 218);" onclick="initGame(medium)">Medium</button>
-        <button style="background-color: rgb(39, 131, 218);" onclick="initGame(expert)">Expert</button>
+        <button style="background-color: rgb(39, 131, 218);" onclick="renderBoard(beginner)">Beginner</button>
+        <button style="background-color: rgb(39, 131, 218);" onclick="renderBoard(medium)">Medium</button>
+        <button style="background-color: rgb(39, 131, 218);" onclick="renderBoard(expert)">Expert</button>
     </div>
     <table>
         <tbody class="mine-board"></tbody>
     </table>
-    <button class="restart" onclick="restartBtn()">Restart</button>
     <div class="safeTimerDisplay"></div>
+    <video autoplay muted loop id="homeVideo" src="video/preview-1092881-QuWsQxel7J-high.mp4"></video>
     <script src="mine.js"></script>
 </body>
 

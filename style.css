@@ -1,11 +1,12 @@
 body {
   background-color: #0096c7;
   text-align: center;
-  color: white;
+
 }
 
 h1 {
   margin: auto;
+color: whitesmoke;
   padding-bottom: 20px;
 }
 
@@ -24,6 +25,11 @@ td {
   font-size: 25px;
   color: white;
   border: 2px solid black;
+  background-color: rgb(45, 45, 213);
+}
+td:hover{
+  box-shadow: inset 100px 0 0 0 #54b3d6;
+  color: white;
 }
 
 .levels {
@@ -31,18 +37,9 @@ td {
   text-align: center;
   margin: auto;
   padding: 20px;
-  background-color: #0077b6;
-}
+  }
 
-.restart {
-  margin: 20px;
-  width: 150px;
-  height: 50px;
-  background-color: rgb(146, 50, 50);
-  color: white;
-  font-size: 30px;
-  display: none;
-}
+
 
 .safeTimerDisplay {
   background-color: #023e8a;
@@ -51,4 +48,16 @@ td {
   padding-top: 15px;
   width: 94px;
   height: 31px;
+}
+
+#homeVideo {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
 }

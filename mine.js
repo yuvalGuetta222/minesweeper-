@@ -5,6 +5,7 @@ var gBoard = {
   isMarked: true,
 };
 
+
 var gLevel = {
   beginner: {
     SIZE: 4,
@@ -21,6 +22,7 @@ var gLevel = {
 };
 
 var MINE = "💣";
+var minesCount;
 var gGame = {
   isOn: true,
   showCount: 0,
@@ -29,11 +31,10 @@ var gGame = {
 };
 
 var beginner = buildBoard(gLevel.beginner);
-function initGame(value) {
-  renderBoard(value);
-  buildBoard(value);
-  gBoard.minesAroundCount = 0;
-}
+var medium = buildBoard(gLevel.medium);
+var expert = buildBoard(gLevel.expert);
+
+
 function buildBoard(level) {
   var board = [];
   for (var i = 0; i < level.SIZE; i++) {
@@ -81,11 +82,11 @@ function renderBoard(board) {
       var negs = setMinesNegsCount(board, i, j);
 
       if (board.length === 4) {
-        gBoard.minesAroundCount = 2;
+        gBoard.minesAroundCount= gLevel.beginner.MINES
       } else if (board.length === 8) {
-        gBoard.minesAroundCount = 14;
+        gBoard.minesAroundCount =  gLevel.medium.MINES
       } else if (board.length === 12) {
-        gBoard.minesAroundCount = 32;
+       gBoard.minesAroundCount= gLevel.expert.MINES
       }
 
       while (counter < gBoard.minesAroundCount) {
@@ -98,7 +99,6 @@ function renderBoard(board) {
       if (board[i][j] !== MINE) {
         board[i][j] = negs;
       }
-
       var cellClass = getClassName({ i, j });
       strHTML += `\t\n<td class="${cellClass}" onmousedown="cellMarked(this,${i},${j})"  onclick="cellClicked(this,${i},${j})">
       </td>`;
@@ -106,39 +106,60 @@ function renderBoard(board) {
   }
   console.table(board);
   strHTML += `\t\n</tr>\n`;
+  minesCount = gBoard.minesAroundCount
   elBoard.innerHTML = strHTML;
 }
 
 function cellClicked(elCell, elCellI, elCellJ) {
+  var board;
   if (gGame.isOn) {
-    var board = beginner;
+    if (minesCount === 2) {
+      board = beginner
+    } else if (minesCount === 14) {
+      board = medium
+    } else if (minesCount===32) {
+      board = expert
+    };
     var elTd = document.querySelector("td");
     var elH2 = document.querySelector("h2");
-    var elBtnRes = document.querySelector(".restart");
     var currentCell = board[elCellI][elCellJ];
     elTd = elCell;
-
+    
     elTd.innerHTML = currentCell;
+    if(currentCell || currentCell === 0 ){
+      if(gGame.showCount === 1){
+        timer()
+      }
+      if(gGame.showCount === ( board.length**2) - minesCount && gGame.markedCount === minesCount ){
+        console.log("gameover")
+      }
+            gGame.showCount++
+    }
     if (currentCell === 0) {
       elTd.style.backgroundColor = "white";
     }
     if (currentCell === "💣") {
-      elH2.innerHTML = `🤯`;
-      gGame.isOn = false;
-      elBtnRes.style.display = "inline-block";
-    }
+    var elH3 = document.querySelector(".life")
+    elH2.innerHTML = `🤯`;
+    gGame.isOn = false;
+
   }
 }
-
-function restartBtn() {
-  renderBoard(beginner);
-  gGame.isOn = true;
-  gBoard.minesAroundCount = 0;
 }
 
+
+
+
 function cellMarked(elCell, elCellI, elCellJ) {
+  var board;
   if (gGame.isOn) {
-    var board = beginner;
+    if (minesCount === 2) {
+      board = beginner
+    } else if (minesCount === 14) {
+    board = medium
+    } else if (minesCount===32) {
+     board = expert
+    };
     var elTd = document.querySelector("td");
     var currentCell = board[elCellI][elCellJ];
     elTd = elCell;
@@ -148,13 +169,11 @@ function cellMarked(elCell, elCellI, elCellJ) {
       elTd.innerHTML = "";
     }
     if (currentCell === MINE) {
-      gLevel.beginner.MINES--;
-      if (gLevel.beginner.MINES === 0) {
-        console.log("You Won!");
-      }
+        gGame.markedCount++
+    
     }
   }
-}
+  }
 
 function checkGameOver() {}
 
@@ -175,16 +194,17 @@ function getClassName(location) {
 
 function timer() {
   var sec = 60;
-  var elBtnRes = document.querySelector(".restart");
   var timer = setInterval(() => {
-    var elTimer = document.querySelector(".safeTimerDisplay");
+  var elTimer = document.querySelector(".safeTimerDisplay");
     elTimer.innerHTML = `00:${sec}`;
     sec--;
-    if (sec < 0 || elBtnRes.style.display === "inline-block") {
-      elBtnRes.style.display = "inline-block";
+    if (sec < 0 ) {
       elTimer.style.display = "none";
       clearInterval(timer);
     }
   }, 1000);
+  if(sec === 0){
+    return
+  }
 }
-timer();
+
